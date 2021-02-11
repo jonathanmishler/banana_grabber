@@ -1,0 +1,3 @@
+# Data Grabber
+
+This package is a simple library to download data and save it in a particular way.  My idea to saving data files locally is to have a data folder and then a folder for each specific data set.  Then there will be a raw file representing the raw data from whatever resource it came from.  Then you would have a clean file representing the cleaned data.  You could also have any modifcation of the raw file you want.  Then this makes it much easier to access the data in your project. 
