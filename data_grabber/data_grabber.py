@@ -7,7 +7,7 @@ import urllib3
 
 def create(pathname: str):
     """ Creates the directory structure of pathname given in the current directory """
-    datapath = Path(f"{pathname}")
+    datapath = Path(pathname)
     datapath.mkdir(parents=True, exist_ok=True)
 
     return datapath
