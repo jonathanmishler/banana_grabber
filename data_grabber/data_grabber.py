@@ -24,7 +24,7 @@ def download(url: str, filepath: Union[PosixPath, WindowsPath]):
         filepath, "wb"
     ) as datafile:
         if r.status == 200:
-            size = "UNKNOWN"
+            size = 0
             if "Content-Length" in r.headers:
                 size = int(r.headers["Content-Length"]) / (1024 * 1024)
             print(
