@@ -1,5 +1,6 @@
 import os
 from typing import Union
+from zipfile import ZipFile
 from pathlib import Path, PosixPath, WindowsPath
 import shutil
 import urllib3
@@ -39,7 +40,13 @@ def download(url: str, filepath: Union[PosixPath, WindowsPath]):
     return filepath
 
 
-def grab_from_url(url: str, pathname: str, filename: str = None, update: bool = False):
+def grab_from_url(
+    url: str,
+    pathname: str,
+    filename: str = None,
+    update: bool = False,
+    unzip: bool = True,
+):
     """ Downloads the file at the URL and saves it at the pathname """
     path = create(pathname)
     if filename is None:
@@ -49,4 +56,21 @@ def grab_from_url(url: str, pathname: str, filename: str = None, update: bool = 
         filepath = download(url, filepath)
     else:
         print(f"File Already Downloaded at {filepath}")
+    if filepath.suffix.lower == ".zip" and unzip:
+        unzip_all(filepath)
     return filepath
+
+
+def unzip_all(filepath: Union[PosixPath, WindowsPath]) -> None:
+    """ Unzip into the same directory as the zip file """
+    path = filepath.parent
+    with ZipFile(filepath, "r") as zip_file:
+        if not check_if_files_in_dir(zip_file.namelist(), path):
+            zip_file.extractall(filepath.parent)
+        print(f"Archive {filepath.name} is extracted into {path}")
+
+
+def check_if_files_in_dir(
+    file_list: list, dir_path: Union[PosixPath, WindowsPath]
+) -> bool:
+    return all([(dir_path / f).exists() for f in file_list])
