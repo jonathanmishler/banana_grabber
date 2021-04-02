@@ -56,7 +56,7 @@ def grab_from_url(
         filepath = download(url, filepath)
     else:
         print(f"File Already Downloaded at {filepath}")
-    if filepath.suffix.lower == ".zip" and unzip:
+    if (filepath.suffix.lower() == ".zip") and unzip:
         unzip_all(filepath)
     return filepath
 
