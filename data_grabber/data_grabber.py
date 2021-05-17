@@ -29,7 +29,7 @@ def download(url: str, filepath: Union[PosixPath, WindowsPath]):
             if "Content-Length" in r.headers:
                 size = int(r.headers["Content-Length"]) / (1024 * 1024)
             print(
-                f"Downloading {get_filename_from_url(url)} - File Size: {size:.3f} MB"
+                f"Downloading {get_filename_from_url(url)}"
             )
             shutil.copyfileobj(r, datafile)
             print("Download Successful")
